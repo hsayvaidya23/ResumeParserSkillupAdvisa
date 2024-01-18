@@ -80,6 +80,10 @@
 .black_btn {
   @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
 }
+.blue_btn {
+  @apply rounded-full border border-blue-500 bg-blue-500 py-1.5 px-2 text-white transition-all hover:bg-white hover:text-blue-500 text-center text-sm font-inter flex items-end justify-center;
+}
+
 
 .outline_btn {
   @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
@@ -240,6 +244,23 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.light-green-text-gradient {
+  background: #8cc63e; /* Light Green */
+  background: -webkit-linear-gradient(
+    to top,
+    #8cc63e,
+    #b21515
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #8cc63e,
+    #b21515
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 .yellow-text-gradient {
   background: #fff200; /* fallback for old browsers */
