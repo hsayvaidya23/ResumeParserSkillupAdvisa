@@ -36,8 +36,12 @@ const ResumeSchema = new Schema({
     required: [true, 'Projects is required.']
   },
   technicalSkills: {
-    type: String,
-    required: [true, 'Technical Skills is required.']
+    type: [String], // Changed to array of strings
+    required: [true, 'Technical Skills are required.'],
+    set: function (value) {
+      // Split the string by commas and trim each skill
+      return value.split(',').map(skill => skill.trim());
+    }
   },
   extracurricularActivities: {
     type: String,
