@@ -69,10 +69,9 @@ const Feed = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded shadow-md mx-auto max-w-2xl">
           <div className="mb-4 md:mb-0 p-8">
             <p className="text-gray-700">
-              "I got hired within a week of using the Resume Builder. Highly
-              recommended!"
+              "Using Skillup Advisa i was able to learn new tech stack!"
             </p>
-            <p className="text-gray-600 mt-4">- John Doe</p>
+            <p className="text-gray-600 mt-4">- Tejas Masane</p>
           </div>
           <div className="mb-4 md:mb-0 p-8">
             <p className="text-gray-700">

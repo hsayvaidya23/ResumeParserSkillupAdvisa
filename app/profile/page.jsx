@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 import PredictScore from "@components/PredictScore";
+import ResumePDF from '@components/ResumePDF';
+
 
 const MyProfile = () => {
   const router = useRouter();
@@ -24,6 +25,10 @@ const MyProfile = () => {
     <div className="mt-7">
       <PredictScore />
     </div>
+    <div className="mt-7">
+      <ResumePDF />
+    </div>
+   
   </section>
     </>
   );

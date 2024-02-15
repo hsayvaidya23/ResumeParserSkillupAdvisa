@@ -80,13 +80,13 @@ const ResumeForm = ({ type, resumeData, setResumeData, submitting, handleSubmit 
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Education
           </span>
-          <input
+          <textarea
             type="text"
             value={resumeData.education}
             onChange={(e) => setResumeData({ ...resumeData, education: e.target.value })}
             placeholder="Your Education"
             required
-            className="form_input"
+            className="form_textarea"
           />
         </label>
 
@@ -95,13 +95,13 @@ const ResumeForm = ({ type, resumeData, setResumeData, submitting, handleSubmit 
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Experience
           </span>
-          <input
+          <textarea
             type="text"
             value={resumeData.experience}
             onChange={(e) => setResumeData({ ...resumeData, experience: e.target.value })}
             placeholder="Your Experience"
             required
-            className="form_input"
+            className="form_textarea"
           />
         </label>
 
