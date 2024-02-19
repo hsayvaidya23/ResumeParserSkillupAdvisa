@@ -75,10 +75,10 @@ const Feed = () => {
           </div>
           <div className="mb-4 md:mb-0 p-8">
             <p className="text-gray-700">
-              "I got hired within a week of using the Resume Builder. Highly
+              "I got hired within a week of using the Skillup Advisa. Highly
               recommended!"
             </p>
-            <p className="text-gray-600 mt-4">- John Doe</p>
+            <p className="text-gray-600 mt-4">- Yash Sardare</p>
           </div>
         </div>
       </section>
@@ -221,7 +221,7 @@ const Feed = () => {
         </div>
       </section>
 
-      <footer className=" text-blue_gradient text-center py-4">
+      <footer className=" text-blue_gradient text-center py-4 mt-6">
         <p>&copy; 2024 SkillUp Advisa </p>
       </footer>
     </div>
