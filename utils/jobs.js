@@ -98,9 +98,142 @@ import {
   Confidential,
   Makerble,
   lte,
+  praella,
+  dtcc,
+  meera,
+  path,
+  del
 } from "../public/assets/jobs";
 
 export const Jobs = [
+   //updated web dev
+   {
+    company_name: "Deloitte",
+    job_position: "Software Engineer",
+    work_location: "Bengaluru",
+    image: del,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/XxuIWaW6dmJ3pRX9Eo9pUlUAwbZasejpJPUzcBeR-aGtnEeMJgy5GA",
+    preferred_skills: ["AJAX","ASP.NET","Bootstrap","CSS","SQL","JavaScript","APIs","HTML5","TypeScript","jQuery"],
+  },
+  {
+    company_name: "Deloitte",
+    job_position: "Sr. Analyst",
+    work_location: "Bengaluru",
+    image: del,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/Vd7_VQpqQUFHrkGG2D-s3IlRMRnn5rBco73NeNOro2WU7kE-5bqzoQ",
+    preferred_skills: ["AJAX","ASP.NET","Azure","C#","XSLT","JavaScript","ASP","JSON",".NET","jQuery"],
+  },
+  {
+    company_name: "PathFactory",
+    job_position: "Associate Web Developer",
+    work_location: "Remote",
+    image: path,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/H_JPr-BgLT9106_SRd3o1HWmeQOfFjVxwcWj-rkknksIh1sun77Ptg",
+    preferred_skills: ["CSS","Bootstrap","HTML5","Pardot","Graphic Design","JavaScript","Adobe Creative Suite"],
+  },
+  {
+    company_name: "Meera.ai",
+    job_position: "UI/UX Developer",
+    work_location: "Remote",
+    image: meera,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/h4UHgVy8TmTfeU3yWDWKAoYe2eY5OtMtvdvAcfp3JmQQXDeQvHeoUg",
+    preferred_skills: ["UI","UX","Sketch","SaaS","Figma","JavaScript","HTML5","Adobe XD"],
+  },
+  {
+    company_name: "DTCC",
+    job_position: "Lead UI Developer",
+    work_location: "Chennai",
+    image: dtcc,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/YULzClf1j3q0sj7dIfHYxtyqEnuXIhUzpYQ1ZFnaIf8avztAl6AT_w",
+    preferred_skills: ["CI/CD","CSS","React","SASS","UI","JavaScript","Angular","HTML5"],
+  },
+  {
+    company_name: "Ryan-Miranda Partners LLC",
+    job_position: "Full Stack Developer",
+    work_location: "Delhi",
+    image: no_logo,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/1sXWOSSitnN1P66Q0tjZOFG6GcQPZ2XZ1MVEuEpWGpJ_2zmfF5dEnw",
+    preferred_skills: ["Jira","B.C.S","Azure","Rust","Node.js","CSS","Git","AWS","REST","APIs","Vue.js"],
+  },
+  {
+    company_name: "Altois",
+    job_position: "Web Developer Intern",
+    work_location: "Kandivali West, Mumbai",
+    image: no_logo,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/bqzmWTYl7HrPxWQnF3885Uj0-Zb52o34Rz6W3ftRrwVUqU6XPvpUog",
+    preferred_skills: ["PHP","APIs"],
+  },
+  {
+    company_name: "Nirva",
+    job_position: "Frontend Engineer",
+    work_location: "Remote",
+    image: no_logo,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/57C18J1oVAVRX54al55Qq6xpR1EMaVyH0826knD5WVctih4MHRGpEQ",
+    preferred_skills: ["CSS","React","JavaScript","HTML5"],
+  },
+  {
+    company_name: "Praella Private Limited",
+    job_position: "Senior Web Designer",
+    work_location: "Katargam",
+    image: praella,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/DjYRer0w4BX0peZrOxRTkhdIdgCpu2CPfRh69Zroc4IcbvM9IomE9A",
+    preferred_skills: ["Web design","Adobe Photoshop","CSS","BootStrap","Git","Ruby on Rails","JavaScript","SCSS","Figma","PHP"],
+  },
+  // haha
   {
     company_name: "Entiovi Technologies",
     job_position: "Fullstack Engineer",

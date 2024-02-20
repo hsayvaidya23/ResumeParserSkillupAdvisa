@@ -96,6 +96,11 @@ import Malabar_group from './Malabar Group.png';
 import Confidential from './Confidential.jpeg';
 import Makerble from './Makerble.png';
 import lte from './lte.png';
+import praella from './praella.png';
+import dtcc from './dtcc.png';
+import meera from './meera.png';
+import path from './path.png';
+import del from './del.png'
 
 export {
     acc,
@@ -196,4 +201,9 @@ export {
     Confidential,
     Makerble,
     lte,
+    praella,
+    dtcc,
+    meera,
+    path,
+    del
 };
