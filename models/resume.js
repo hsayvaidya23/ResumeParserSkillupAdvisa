@@ -23,36 +23,37 @@ const ResumeSchema = new Schema({
     unique: true,
     match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
-  education: {
+  education: [{
+    degree: { type: String, required: true },
+    institution: { type: String, required: true },
+    year: { type: String, required: true }
+  }],
+  experience: [{
+    role: { type: String, required: true },
+    company: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date },
+    description: { type: String, required: true }
+  }],
+  projects: [{
+    name: { type: String, required: true },
+    description: { type: String, required: true }
+  }],
+  technicalSkills: [{
     type: String,
-    required: [true, 'Education is required.']
-  },
-  experience: {
-    type: String,
-    required: [true, 'Experience is required.']
-  },
-  projects: {
-    type: String,
-    required: [true, 'Projects is required.']
-  },
-  technicalSkills: {
-    type: [String], // Changed to array of strings
-    required: [true, 'Technical Skills are required.'],
-    set: function (value) {
-      // Split the string by commas and trim each skill
-      return value.split(',').map(skill => skill.trim());
-    }
-  },
-  extracurricularActivities: {
-    type: String,
-    required: [true, 'Extracurricular Activities is required.']
-  },
+    required: [true, 'Technical Skills are required.']
+  }],
+  certificates: [{
+    name: { type: String, required: true },
+    issuer: { type: String, required: true },
+    date: { type: Date, required: true }
+  }],
   tag: {
     type: String,
     required: [true, 'Tag is required.']
   },
 });
 
-const Resume = models.Resume  || model('Resume', ResumeSchema);
+const Resume = models.Resume || model('Resume', ResumeSchema);
 
 export default Resume;

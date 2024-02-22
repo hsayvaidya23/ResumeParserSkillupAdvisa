@@ -12,7 +12,7 @@ export const POST = async (req) => {
     experience,
     projects,
     technicalSkills,
-    extracurricularActivities,
+    certificates,
     tag,
   } = await req.json();
 
@@ -28,7 +28,7 @@ export const POST = async (req) => {
       experience,
       projects,
       technicalSkills,
-      extracurricularActivities,
+      certificates,
       tag,
     });
 
@@ -41,3 +41,5 @@ export const POST = async (req) => {
     return new Response("Failed to create a new resume", { status: 500 })
   }
 };
+
+

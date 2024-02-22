@@ -1,9 +1,7 @@
 "use client";
-
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-
+import { useRouter } from "next/navigation"; 
 import Form from "@components/Form";
 
 const BuildResume = () => {
@@ -16,11 +14,11 @@ const BuildResume = () => {
     contactNumber: "",
     linkedinURL: "",
     email: "",
-    education: "",
-    experience: "",
-    projects: "",
-    technicalSkills: "",
-    extracurricularActivities: "",
+    education: [], 
+    experience: [], 
+    projects: [], 
+    technicalSkills: [], 
+    certificates: [], 
     tag: "",
   });
 
@@ -31,18 +29,12 @@ const BuildResume = () => {
     try {
       const response = await fetch("/api/resume/new", {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json', 
+        },
         body: JSON.stringify({
           userId: session?.user.id,
-          name: resumeData.name,
-          contactNumber: resumeData.contactNumber,
-          linkedinURL: resumeData.linkedinURL,
-          email: resumeData.email,
-          education: resumeData.education,
-          experience: resumeData.experience,
-          projects: resumeData.projects,
-          technicalSkills: resumeData.technicalSkills,
-          extracurricularActivities: resumeData.extracurricularActivities,
-          tag: resumeData.tag,
+          ...resumeData, 
         }),
       });
 
