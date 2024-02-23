@@ -6,6 +6,7 @@ import PredictScore from "@components/PredictScore";
 import ResumePDF from '@components/ResumePDF';
 
 
+
 const MyProfile = () => {
   const router = useRouter();
   const { data: session } = useSession();

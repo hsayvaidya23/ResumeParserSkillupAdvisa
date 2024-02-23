@@ -1,216 +1,377 @@
-import React, { useState, useCallback } from 'react';
-
-import axios from "axios";
-import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
-
-const generatePdf = async (resumeData) => {
-  try {
-    // Create a new PDF document
-    const pdfDoc = await PDFDocument.create();
-    let page = pdfDoc.addPage();
-
-    // Set up font (adjust font name and size if needed)
-    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-
-    // Render resume data on the PDF
-    const drawText = (text, options) => {
-      page.drawText(text, {
-        x: options.x,
-        y: options.y,
-        size: options.size || 12,
-        font: font,
-        color: options.color || rgb(0, 0, 0),
-      });
-    };
-
-    // Define initial y coordinate and line height
-    let y = 750;
-    const lineHeight = 15; // Decreased line spacing
-
-    // Define positions for each section with formatting
-    const sections = [
-      { title: 'Personal Information', fields: [
-        { label: 'Name:', value: resumeData.name },
-        { label: 'LinkedIn:', value: resumeData.linkedinURL },
-        { label: 'Phone:', value: resumeData.contactNumber },
-        { label: 'Email:', value: resumeData.email },
-      ]},
-      { title: 'Projects', fields: [
-        { value: resumeData.projects },
-      ]},
-      { title: 'Education', fields: [
-        { value: resumeData.education },
-      ]},
-      { title: 'Experience', fields: [
-        { value: resumeData.experience },
-      ]},
-      { title: 'Skills', fields: [
-        { value: resumeData.technicalSkills.join(', ') },
-      ]},
-      // Add more sections if needed
-    ];
-
-    // Render each section with proper formatting
-    sections.forEach(({ title, fields }) => {
-      // Add section title
-      const sectionTitleHeight = 20; // Height for section title
-      if (y - sectionTitleHeight < 0) {
-        page = pdfDoc.addPage(); // Add a new page if there's not enough space
-        y = page.getHeight() - sectionTitleHeight; // Reset y coordinate
-      }
-
-      drawText(title, { x: 50, y, size: 14, color: rgb(0, 0, 0), bold: true });
-      y -= lineHeight; // Move to the next line
-      y -= lineHeight * 0.5; // Add some spacing after the section title
-
-      // Render fields within the section
-      fields.forEach(({ label, value }) => {
-        let textX = 50;
-        let textY = y;
-
-        if (label) {
-          drawText(`${label} `, { x: textX, y: textY, size: 12, color: rgb(0, 0, 0), bold: true });
-          textX += font.widthOfTextAtSize(`${label} `, 12);
-        }
-
-        const availableWidth = page.getWidth() - textX - 50; // Adjusted for padding
-        const lines = splitTextIntoLines(value, availableWidth, font);
-
-        lines.forEach(line => {
-          if (y - lineHeight < 0) {
-            page = pdfDoc.addPage(); // Add a new page if there's not enough space
-            y = page.getHeight(); // Reset y coordinate
-          }
-          drawText(line, { x: textX, y: textY, size: 12, color: rgb(0, 0, 0) });
-          textY -= lineHeight;
-        });
-
-        // Move to the next line
-        y = textY;
-      });
-
-      // Add spacing between sections
-      y -= lineHeight * 2;
-    });
-
-    // Save and download the PDF
-    const pdfBytes = await pdfDoc.save();
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'resume.pdf';
-    link.click();
-  } catch (error) {
-    console.error('Error generating PDF:', error);
-  }
-};
-
-
-function splitTextIntoLines(text, maxWidth, font) {
-  const lines = [];
-  let currentLine = '';
-
-  for (const char of text) {
-    if (char === '\n') {
-      lines.push(currentLine);
-      currentLine = '';
-    } else {
-      const width = font.widthOfTextAtSize(currentLine + char, 12);
-      if (width <= maxWidth || !currentLine) {
-        currentLine += char;
-      } else {
-        lines.push(currentLine);
-        currentLine = char;
-      }
-    }
-  }
-  if (currentLine !== '') {
-    lines.push(currentLine);
-  }
-
-  return lines;
-}
-
-
+import React, { useState, useEffect } from "react";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
 const ResumePDF = () => {
   const [resumeData, setResumeData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchResumeData = async () => {
-    try {
+  useEffect(() => {
+    const fetchResumeData = async () => {
       setLoading(true);
-      const response = await axios.get("/api/resume");
-      setResumeData(response.data[0]);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching resume data:", error);
-      setLoading(false);
-    }
-  };
+      try {
+        const response = await fetch("/api/resume");
+        const data = await response.json();
+        setResumeData(data[0]);
+      } catch (error) {
+        console.error("Error fetching resume data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleDownloadPdf = async () => {
-    if (!resumeData) {
-      await fetchResumeData();
-    }
-    if (resumeData) {
-      generatePdf(resumeData);
+    fetchResumeData();
+  }, []);
+
+  const generatePdf = async (resumeData) => {
+    try {
+      const pdfDoc = await PDFDocument.create();
+      let page = pdfDoc.addPage([595.28, 841.89]);
+      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+      const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+      let y = page.getHeight() - 50;
+      const lineHeight = 18;
+      const leftMargin = 50;
+      const rightMargin = 50;
+      const maxTextWidth = page.getWidth() - leftMargin - rightMargin;
+
+      const drawText = (
+        text,
+        x,
+        y,
+        fontSize = 12,
+        bold = false,
+        maxWidth = maxTextWidth
+      ) => {
+        const selectedFont = bold ? boldFont : font;
+        page.drawText(text, {
+          x,
+          y,
+          size: fontSize,
+          font: selectedFont,
+          maxWidth,
+        });
+      };
+
+      const drawLine = (x1, y1, x2, y2) => {
+        page.drawLine({
+          start: { x: x1, y: y1 },
+          end: { x: x2, y: y2 },
+          thickness: 1,
+          color: rgb(0, 0, 0),
+        });
+      };
+
+      const splitTextIntoLines = (text, maxWidth, fontSize, font) => {
+        if (!text) return [];
+        const lines = [];
+        let currentLine = "";
+        let currentWidth = 0;
+        const words = text.split(/\s+/);
+        for (const word of words) {
+          const wordWidth = font.widthOfTextAtSize(word, fontSize);
+          if (currentWidth + wordWidth < maxWidth) {
+            currentLine += (currentLine ? " " : "") + word;
+            currentWidth +=
+              wordWidth +
+              (currentLine ? font.widthOfTextAtSize(" ", fontSize) : 0);
+          } else {
+            lines.push(currentLine.trim());
+            currentLine = word;
+            currentWidth = wordWidth;
+          }
+        }
+        if (currentLine.trim() !== "") {
+          lines.push(currentLine.trim());
+        }
+        return lines;
+      };
+
+      const checkAndAddNewPage = () => {
+        if (y < 100) {
+          page = pdfDoc.addPage([595.28, 841.89]);
+          y = page.getHeight() - 50;
+        }
+      };
+
+      // Drawing the name
+      drawText(resumeData.name, leftMargin, y, 14, true);
+      y -= lineHeight;
+
+      // Contact Information
+
+      drawText(`Phone: ${resumeData.contactNumber}`, leftMargin, y);
+      y -= lineHeight;
+      drawText(`Email: ${resumeData.email}`, leftMargin, y);
+      y -= lineHeight;
+      drawText(`LinkedIn: ${resumeData.linkedinURL}`, leftMargin, y);
+      y -= lineHeight * 2;
+      drawLine(
+        leftMargin,
+        y + lineHeight / 2,
+        page.getWidth() - rightMargin,
+        y + lineHeight / 2
+      );
+      y -= lineHeight * 2;
+
+      // Education Section
+
+      if (resumeData.education && resumeData.education.length > 0) {
+        checkAndAddNewPage();
+        drawText("Education", leftMargin, y, 14, true);
+        y -= lineHeight * 1.5;
+
+        resumeData.education.forEach((edu, index) => {
+          const availableWidth = page.getWidth() - leftMargin - rightMargin;
+
+          drawText(`${edu.degree}`, leftMargin, y, 12, true);
+          drawText(`at ${edu.institution}`, leftMargin, y - lineHeight);
+
+          const yearTextWidth = font.widthOfTextAtSize(`Year: ${edu.year}`, 12);
+          drawText(
+            `Year: ${edu.year}`,
+            page.getWidth() - rightMargin - yearTextWidth,
+            y,
+            12
+          );
+
+          y -= lineHeight * 2;
+
+          const descriptionLines = splitTextIntoLines(
+            edu.description,
+            availableWidth,
+            12,
+            font
+          );
+          descriptionLines.forEach((line) => {
+            drawText(line, leftMargin, y);
+            y -= lineHeight;
+          });
+
+          if (index !== resumeData.education.length - 1) {
+            y -= lineHeight * 0.5;
+          }
+        });
+
+        drawLine(
+          leftMargin,
+          y + lineHeight / 2,
+          page.getWidth() - rightMargin,
+          y + lineHeight / 2
+        );
+        y -= lineHeight * 2;
+      }
+
+      // Experience Section
+      if (resumeData.experience && resumeData.experience.length > 0) {
+        checkAndAddNewPage();
+        drawText("Experience", leftMargin, y, 14, true);
+        y -= lineHeight * 1.5;
+
+        resumeData.experience.forEach((exp, index) => {
+          const availableWidth = page.getWidth() - leftMargin - rightMargin;
+
+          drawText(`${exp.role}`, leftMargin, y, 12, true);
+          drawText(`at ${exp.company}`, leftMargin, y - lineHeight);
+
+          const datesText = `From: ${new Date(
+            exp.startDate
+          ).toLocaleDateString()} To: ${
+            exp.endDate ? new Date(exp.endDate).toLocaleDateString() : "Present"
+          }`;
+          const datesTextWidth = font.widthOfTextAtSize(datesText, 12);
+          drawText(
+            datesText,
+            page.getWidth() - rightMargin - datesTextWidth,
+            y,
+            12
+          );
+
+          y -= lineHeight * 2;
+
+          if (exp.location) {
+            drawText(exp.location, leftMargin, y);
+            y -= lineHeight;
+          }
+
+          // Draw the description
+          const descriptionLines = splitTextIntoLines(
+            exp.description,
+            availableWidth,
+            12,
+            font
+          );
+          descriptionLines.forEach((line) => {
+            drawText(line, leftMargin, y);
+            y -= lineHeight;
+          });
+
+          if (index !== resumeData.experience.length - 1) {
+            y -= lineHeight * 0.5;
+          }
+        });
+
+        drawLine(
+          leftMargin,
+          y + lineHeight / 2,
+          page.getWidth() - rightMargin,
+          y + lineHeight / 2
+        );
+        y -= lineHeight * 2;
+      }
+
+      // Projects Section
+      if (resumeData.projects && resumeData.projects.length > 0) {
+        checkAndAddNewPage();
+        drawText("Projects", leftMargin, y, 14, true);
+        y -= lineHeight * 1.5;
+
+        resumeData.projects.forEach((project) => {
+          const description = project.description || "";
+
+          const descriptionLines = splitTextIntoLines(
+            description,
+            page.getWidth() - 2 * leftMargin,
+            12,
+            font
+          );
+          const entrySpaceNeeded = lineHeight * (2 + descriptionLines.length);
+
+          checkAndAddNewPage(entrySpaceNeeded);
+
+          // Project Name
+          drawText(`${project.name}`, leftMargin, y, 12, true);
+          y -= lineHeight;
+
+          descriptionLines.forEach((line) => {
+            drawText(line, leftMargin, y);
+            y -= lineHeight;
+          });
+
+          y -= lineHeight * 0.5;
+        });
+
+        drawLine(
+          leftMargin,
+          y + lineHeight / 2,
+          page.getWidth() - rightMargin,
+          y + lineHeight / 2
+        );
+        y -= lineHeight;
+      }
+
+      // Technical Skills Section
+      if (resumeData.technicalSkills && resumeData.technicalSkills.length > 0) {
+        checkAndAddNewPage();
+        drawText("Technical Skills", leftMargin, y, 14, true);
+        y -= lineHeight * 1.5;
+
+        const skillsText = resumeData.technicalSkills.join(", ");
+
+        const skillsLines = splitTextIntoLines(
+          skillsText,
+          page.getWidth() - 2 * leftMargin,
+          12,
+          font
+        );
+
+        skillsLines.forEach((line) => {
+          drawText(line, leftMargin, y);
+          y -= lineHeight;
+        });
+
+        y -= lineHeight * 0.5;
+
+        drawLine(
+          leftMargin,
+          y + lineHeight / 2,
+          page.getWidth() - rightMargin,
+          y + lineHeight / 2
+        );
+        y -= lineHeight;
+      }
+
+      // Certificates Section
+      if (resumeData.certificates && resumeData.certificates.length > 0) {
+        checkAndAddNewPage();
+        drawText("Certificates", leftMargin, y, 14, true);
+        y -= lineHeight * 1.5;
+
+        resumeData.certificates.forEach((cert) => {
+          const descriptionLines = splitTextIntoLines(
+            cert.description,
+            page.getWidth() - 2 * leftMargin,
+            12,
+            font
+          );
+          const entrySpaceNeeded = lineHeight * (3 + descriptionLines.length);
+
+          checkAndAddNewPage(entrySpaceNeeded);
+
+          // Certificate Name
+          drawText(`${cert.name}`, leftMargin, y, 12, true);
+          y -= lineHeight;
+
+          // Issuing Organization
+          drawText(`Issued by: ${cert.issuer}`, leftMargin, y);
+          y -= lineHeight;
+
+          // Dates
+          drawText(
+            `Date: ${new Date(cert.date).toLocaleDateString()}`,
+            leftMargin,
+            y
+          );
+          y -= lineHeight;
+
+          descriptionLines.forEach((line) => {
+            drawText(line, leftMargin, y);
+            y -= lineHeight;
+          });
+
+          y -= lineHeight * 0.5;
+        });
+
+        drawLine(
+          leftMargin,
+          y + lineHeight / 2,
+          page.getWidth() - rightMargin,
+          y + lineHeight / 2
+        );
+        y -= lineHeight;
+      }
+
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="bg-white shadow-lg rounded-lg px-8 py-6">
-        <h1 className="text-2xl font-bold mb-4">
-          {resumeData ? resumeData.name : "Your Name"}
-        </h1>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">LinkedIn:</span>{" "}
-          {resumeData ? resumeData.linkedinURL : "LinkedIn URL"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Phone:</span>{" "}
-          {resumeData ? resumeData.contactNumber : "Contact Number"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Email:</span>{" "}
-          {resumeData ? resumeData.email : "Email Address"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Projects:</span>{" "}
-          {resumeData ? resumeData.projects : "Projects"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Education:</span>{" "}
-          {resumeData ? resumeData.education : "Education"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Experience:</span>{" "}
-          {resumeData ? resumeData.experience : "Experience"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Skills:</span>{" "}
-          {resumeData ? resumeData.technicalSkills.join(", ") : "Skills"}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <span className="font-semibold">Extra Curricular Activities:</span>{" "}
-          {resumeData
-            ? resumeData.extracurricularActivities
-            : "Extra Curricular Activities"}
-        </p>
-        <div className="text-center mt-8">
-          <button
-            onClick={handleDownloadPdf}
-            disabled={loading}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            {loading ? "Loading..." : "Download PDF"}
-          </button>
-        </div>
-      </div>
+    <div>
+      <button
+        className="blue_btn"
+        onClick={() => handleDownloadPdf()}
+        disabled={loading || !resumeData}
+      >
+        {loading ? "Preparing Resume..." : "Download Resume"}
+      </button>
+      <div className="mt-10"></div>
     </div>
   );
+
+  async function handleDownloadPdf() {
+    if (resumeData) {
+      await generatePdf(resumeData);
+    }
+  }
 };
 
 export default ResumePDF;
