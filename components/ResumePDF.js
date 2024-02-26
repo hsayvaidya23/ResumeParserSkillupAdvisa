@@ -355,16 +355,27 @@ const ResumePDF = () => {
   };
 
   return (
-    <div>
-      <button
-        className="blue_btn"
-        onClick={() => handleDownloadPdf()}
-        disabled={loading || !resumeData}
-      >
-        {loading ? "Preparing Resume..." : "Download Resume"}
-      </button>
-      <div className="mt-10"></div>
-    </div>
+    <>
+      <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
+        <div className="flex-[0.75] bg-black-100 p-8 rounded-2xl mt-5">
+          <h1 className="font-extrabold text-4xl text-blue-500 mt">
+            Resume Download
+          </h1>
+          <p className="text-gray-700 mt-7">
+            Click on the download button below to get your resume! 📥 Unlock new
+            career opportunities with just one click. 🚀
+          </p>
+          <button
+            className="blue_btn mt-3 font-bold"
+            onClick={() => handleDownloadPdf()}
+            disabled={loading || !resumeData}
+          >
+            {loading ? "Preparing Resume..." : "Download"}
+          </button>
+        </div>
+      </div>
+      <div className="mt-20"></div>
+    </>
   );
 
   async function handleDownloadPdf() {
