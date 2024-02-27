@@ -342,3 +342,122 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+
+/* Padding */
+.paddingX {
+  padding-left: 1.5rem; /* px-6 */
+  padding-right: 1.5rem; /* px-6 */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .paddingX {
+    padding-left: 4rem; /* sm:px-16 */
+    padding-right: 4rem; /* sm:px-16 */
+  }
+}
+
+.paddingY {
+  padding-top: 1.5rem; /* py-6 */
+  padding-bottom: 1.5rem; /* py-6 */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .paddingY {
+    padding-top: 4rem; /* sm:py-16 */
+    padding-bottom: 4rem; /* sm:py-16 */
+  }
+}
+
+.padding {
+  padding: 2.5rem 1.5rem; /* py-10 px-6 */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .padding {
+    padding: 4rem; /* sm:px-16 sm:py-16 */
+  }
+}
+
+/* Hero Head Text */
+.heroHeadText {
+  font-weight: 900; /* font-black */
+  color: black; /* text-white */
+  font-size: 2.5rem; /* text-[40px] */
+  line-height: 6.125rem; /* lg:leading-[98px] */
+  margin-top: 0.5rem; /* mt-2 */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .heroHeadText {
+    font-size: 3.75rem; /* sm:text-[60px] */
+  }
+}
+@media (min-width: 1024px) { /* lg breakpoint */
+  .heroHeadText {
+    font-size: 5rem; /* lg:text-[80px] */
+  }
+}
+
+/* Hero Head Text */
+.heroHeadText {
+  font-weight: 900; /* font-black */
+  color: black; /* Updated to black */
+  font-size: 2.5rem; /* text-[40px] */
+  line-height: 6.125rem; /* lg:leading-[98px] */
+  margin-top: 0.5rem; /* mt-2 */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .heroHeadText {
+    font-size: 3.75rem; /* sm:text-[60px] */
+  }
+}
+@media (min-width: 1024px) { /* lg breakpoint */
+  .heroHeadText {
+    font-size: 5rem; /* lg:text-[80px] */
+  }
+}
+
+/* Hero Sub Text */
+.heroSubText {
+  color: black; /* Updated to black */
+  font-weight: 500; /* font-medium */
+  font-size: 1rem; /* text-[16px] */
+  line-height: 2.5rem; /* lg:leading-[40px] */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .heroSubText {
+    font-size: 1.625rem; /* sm:text-[26px] */
+  }
+}
+@media (min-width: 1024px) { /* lg breakpoint */
+  .heroSubText {
+    font-size: 1.875rem; /* lg:text-[30px] */
+  }
+}
+
+/* Section Head Text */
+.sectionHeadText {
+  color: black; /* Updated to black */
+  font-weight: 900; /* font-black */
+  font-size: 1.875rem; /* text-[30px] */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .sectionHeadText {
+    font-size: 3.125rem; /* sm:text-[50px] */
+  }
+}
+@media (min-width: 768px) { /* md breakpoint */
+  .sectionHeadText {
+    font-size: 3.75rem; /* md:text-[60px] */
+  }
+}
+
+/* Section Sub Text */
+.sectionSubText {
+  font-size: 0.875rem; /* text-[14px] */
+  text-transform: uppercase; /* uppercase */
+  letter-spacing: 0.05em; /* tracking-wider */
+  color: black; /* Updated to black */
+}
+@media (min-width: 640px) { /* sm breakpoint */
+  .sectionSubText {
+    font-size: 1.125rem; /* sm:text-[18px] */
+  }
+}

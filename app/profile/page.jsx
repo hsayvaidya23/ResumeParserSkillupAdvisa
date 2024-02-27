@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 import PredictScore from "@components/PredictScore";
 import ResumePDF from '@components/ResumePDF';
+import InterviewQue from '@components/InterviewQue';
 
 
 
@@ -23,13 +24,11 @@ const MyProfile = () => {
     <div className="flex-end max-w-md">
       <Profile />
     </div>
-    <div className="mt-7">
+    <div className="mt-3">
       <PredictScore />
-    </div>
-    <div className="mt-7">
+      <InterviewQue />
       <ResumePDF />
     </div>
-   
   </section>
     </>
   );

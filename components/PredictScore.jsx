@@ -107,7 +107,7 @@ const PredictScore = () => {
 
   return (
     <>
-      <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
+      <div className="xl:mt-4 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
         <div className="flex-[0.75] bg-black-100 p-8 rounded-2xl mt-5">
           <h1 className="font-extrabold text-4xl text-blue-500 mt">Predict Score</h1>
           <p className="text-gray-700 mt-7">
@@ -152,8 +152,7 @@ const PredictScore = () => {
           </div>
         </div>
       </div>
-      <div className="mt-20"></div>
-
+      <div className="mt-5"></div>
     </>
   );
 };
