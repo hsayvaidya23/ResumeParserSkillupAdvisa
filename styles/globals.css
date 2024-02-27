@@ -461,3 +461,10 @@
     font-size: 1.125rem; /* sm:text-[18px] */
   }
 }
+
+.search_input {
+  @apply block mx-auto rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  width: 500px;
+}
+
+/* Assuming the parent form has a class named 'flex-center', you can apply the following styles to center it */
