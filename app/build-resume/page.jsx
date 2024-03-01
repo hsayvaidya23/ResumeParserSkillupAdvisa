@@ -8,8 +8,20 @@ import Loading from '@components/Loading';
 const BuildResume = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const [submitting, setSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [resumeData, setResumeData] = useState({
+    name: "",
+    contactNumber: "",
+    linkedinURL: "",
+    email: "",
+    education: [], 
+    experience: [], 
+    projects: [], 
+    technicalSkills: [], 
+    certificates: [], 
+    tag: "",
+  });
   useEffect(() => {
     if (!session?.user) {
       setIsLoading(true);
@@ -25,19 +37,6 @@ const BuildResume = () => {
   }
 
 
-  const [submitting, setSubmitting] = useState(false);
-  const [resumeData, setResumeData] = useState({
-    name: "",
-    contactNumber: "",
-    linkedinURL: "",
-    email: "",
-    education: [], 
-    experience: [], 
-    projects: [], 
-    technicalSkills: [], 
-    certificates: [], 
-    tag: "",
-  });
 
   const buildResume = async (e) => {
     e.preventDefault();

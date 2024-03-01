@@ -5,8 +5,8 @@ const InterviewCard = ({
   name,
   link,
 }) => (
-  <div className="bg-black-200 p-3 rounded-3xl xs:w-[280px] w-full shadow-xl">
-    <a href={link} target="_blank" rel="noopener noreferrer" className="text-black font-medium text-[18px] hover:text-blue-300">
+  <div className="transform transition duration-500 hover:scale-105 cursor-pointer bg-gradient-to-r from-blue-500 to-cyan-500 p-4 rounded-xl shadow-lg hover:shadow-2xl w-64">
+    <a href={link} target="_blank" rel="noopener noreferrer" className="text-white font-semibold text-lg hover:text-cyan-200">
       {name}
     </a>
   </div>
