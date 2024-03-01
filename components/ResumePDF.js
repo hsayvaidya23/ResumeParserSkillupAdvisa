@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"; 
 
 const ResumePDF = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [resumeData, setResumeData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -9,7 +13,7 @@ const ResumePDF = () => {
     const fetchResumeData = async () => {
       setLoading(true);
       try {
-        const response = await fetch("/api/resume");
+        const response = await fetch(`/api/users/${session?.user.id}/posts`);
         const data = await response.json();
         setResumeData(data[0]);
       } catch (error) {

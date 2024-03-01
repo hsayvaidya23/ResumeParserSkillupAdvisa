@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"; 
+
 
 const PredictScore = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
+
   const [userSkills, setUserSkills] = useState([]);
   const [jobDescription, setJobDescription] = useState("");
   const [matchingScore, setMatchingScore] = useState(0);
   const [extractedSkills, setExtractedSkills] = useState([]);
   const [lackedSkills, setLackedSkills] = useState([]);
 
-  const predefinedSkills = ["JavaScript", "React", "Node.js", "CSS", "HTML", "Python", "Django", "SQL", "HTML5", "CSS3", "TAILWINDCSS", " Java", "C++", "TypeScript", " Next.js", "WordPress", " Material-UI","FastAPI", "Bootstrap", "SASS","GraphQL", "Git", "Docker", " Google Cloud Platform", "AWS","Figma","Canva","Cypress","SQLite","Firebase","PostgreSQL","MongoDB","MySQL","Pandas","NumPy", "Matplotlib", "Github", "Redux", "Web3", "Solidity"];
+  const predefinedSkills = ["JavaScript", "React", "Node.js", "CSS", "HTML", "Python", "Django", "SQL", "HTML5", "CSS3", "TAILWINDCSS", "Java", "C++", "TypeScript", " Next.js", "WordPress", " Material-UI","FastAPI", "Bootstrap", "SASS","GraphQL", "Git", "Docker", " Google Cloud Platform", "AWS","Figma","Canva","Cypress","SQLite","Firebase","PostgreSQL","MongoDB","MySQL","Pandas","NumPy", "Matplotlib", "Github", "Redux", "Web3", "Solidity"];
 
   const handleJobDescriptionChange = (event) => {
     setJobDescription(event.target.value);
@@ -59,7 +65,7 @@ const PredictScore = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/api/resume");
+        const response = await fetch(`/api/users/${session?.user.id}/posts`);
         const userData = await response.json();
         const technicalSkills = userData[0]?.technicalSkills;
 
@@ -85,7 +91,7 @@ const PredictScore = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, []);  
 
   useEffect(() => {
     identifyLackedSkills();
@@ -105,6 +111,8 @@ const PredictScore = () => {
     return skill;
   };
 
+
+ 
   return (
     <>
       <div className="xl:mt-4 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
