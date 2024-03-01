@@ -1,8 +1,11 @@
 "use client"
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Courses } from "@utils/courses";
 import SearchBar from '@components/SearchBar';
+import Loading from '@components/Loading';
 
 
 const CourseCard = ({ name, description, image, link, tags }) => {
@@ -37,8 +40,25 @@ const CourseCard = ({ name, description, image, link, tags }) => {
 };
 
 const Resources = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [filteredCourses, setFilteredCourses] = useState(Courses);
+
+  useEffect(() => {
+    if (!session?.user) {
+      setIsLoading(true);
+      router.push('/');
+    }
+    else {
+      setIsLoading(false);
+    }
+  }, [session, router]);
+
+  if (isLoading) {
+    return <div> <Loading /></div>;
+  }
 
   const handleSearchChange = (e) => {
     const value = e.target.value;

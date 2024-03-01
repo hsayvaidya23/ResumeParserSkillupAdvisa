@@ -1,8 +1,11 @@
 "use client"
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Jobs } from "@utils/jobs";
 import SearchBar from '@components/SearchBar';
+import Loading from '@components/Loading';
 
 const JobsCard = ({ index, image, link, tags, company_name, job_position }) => {
   return (
@@ -40,8 +43,25 @@ const JobsCard = ({ index, image, link, tags, company_name, job_position }) => {
 };
 
 const JobsList = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [filteredJobs, setFilteredJobs] = useState(Jobs);
+
+  useEffect(() => {
+    if (!session?.user) {
+      setIsLoading(true);
+      router.push('/');
+    }
+    else {
+      setIsLoading(false);
+    }
+  }, [session, router]);
+
+  if (isLoading) {
+    return <div> <Loading /></div>;
+  }
 
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();

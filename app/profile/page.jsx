@@ -1,16 +1,34 @@
 "use client";
+import React, { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 import PredictScore from "@components/PredictScore";
 import ResumePDF from '@components/ResumePDF';
 import InterviewQue from '@components/InterviewQue';
+import Loading from '@components/Loading';
 
 
 
 const MyProfile = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!session?.user) {
+      setIsLoading(true);
+      router.push('/');
+    }
+    else {
+      setIsLoading(false);
+    }
+  }, [session, router]);
+
+  if (isLoading) {
+    return <div> <Loading /></div>;
+  }
+
 
   return (
     <>
