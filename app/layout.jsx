@@ -1,6 +1,7 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
     title: "SkillupAdvisa",
@@ -19,6 +20,7 @@ export const metadata = {
           </div>
   
           <main className='app'>
+            <Analytics />
             <Nav />
             {children}
           </main>
