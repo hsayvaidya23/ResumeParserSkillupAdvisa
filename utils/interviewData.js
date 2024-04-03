@@ -67,4 +67,50 @@ export const DataScienceInterviews = [
   },
 ]
 
+export const DSA = [
+  {
+    name: "Top 100 Data Structure and Algorithms DSA Interview Questions Topic-wise",
+    link: "https://www.geeksforgeeks.org/top-100-data-structure-and-algorithms-dsa-interview-questions-topic-wise/",
+  },
+  {
+    name: "Data Structure Interview Questions",
+    link: "https://www.javatpoint.com/data-structure-interview-questions",
+  },
+  {
+    name: "Data Structure Interview Questions for Freshers",
+    link: "https://www.scholarhat.com/tutorial/datastructures/data-structure-interview-questions-and-answers",
+  },
+  {
+    name: "Commonly Asked Data Structure Interview Questions",
+    link: "https://www.geeksforgeeks.org/commonly-asked-data-structure-interview-questions-set-1/",
+  },
+  {
+    name: "Strivers 79 Last Moment DSA Sheet – Ace Interviews",
+    link: "https://takeuforward.org/interview-sheets/strivers-79-last-moment-dsa-sheet-ace-interviews/",
+  },
+]
+
+export const OOP = [
+  {
+    name: "40+ OOPs Interview Questions and Answers (2024)",
+    link: "https://www.interviewbit.com/oops-interview-questions/",
+  },
+  {
+    name: "OOPs Concepts in Java with Examples & Interview Questions",
+    link: "https://pwskills.com/blog/oops-concepts-in-java-with-examples-interview-questions/",
+  },
+  {
+    name: "100 C++ Interview Questions",
+    link: "https://levelup.gitconnected.com/100-c-interview-questions-e7b9b90e373e",
+  },
+  {
+    name: "OOPs Interview Questions",
+    link: "https://www.javatpoint.com/oops-interview-questions",
+  },
+  {
+    name: "15 Python OOPs interview questions and answers",
+    link: "https://www.testgorilla.com/blog/python-oops-interview-questions/",
+  },
+]
+
 

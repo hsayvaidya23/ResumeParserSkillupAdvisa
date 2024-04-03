@@ -221,7 +221,7 @@ const Feed = () => {
         </div>
       </section>
 
-      <footer className=" text-blue_gradient text-center py-4 mt-6">
+      <footer className="text-blue_gradient text-center py-4 mt-52 md:mt-0">
         <p>&copy; 2024 SkillUp Advisa </p>
       </footer>
     </div>

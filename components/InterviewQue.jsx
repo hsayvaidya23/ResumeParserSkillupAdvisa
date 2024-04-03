@@ -1,5 +1,5 @@
 import React from "react";
-import { WebInterviews, AIInterviews, DataScienceInterviews } from "@utils/interviewData";
+import { WebInterviews, AIInterviews, DataScienceInterviews, OOP, DSA } from "@utils/interviewData";
 
 const InterviewCard = ({
   name,
@@ -39,6 +39,8 @@ const InterviewsList = () => {
           <InterviewsSection title="Web Development Interview Questions" interviews={WebInterviews} />
           <InterviewsSection title="AI Interview Questions" interviews={AIInterviews} />
           <InterviewsSection title="Data Science Interview Questions" interviews={DataScienceInterviews} />
+          <InterviewsSection title="Object Oriented Programming Interview Questions" interviews={OOP} />
+          <InterviewsSection title="Data Structures & Algorithms Interview Questions" interviews={DSA} />
           <p className="text-gray-700 mt-5"> 
             Looking for more resources? Visit our courses page to explore additional learning materials and courses designed to enhance your skills and prepare you for success in your tech career.
           </p>
