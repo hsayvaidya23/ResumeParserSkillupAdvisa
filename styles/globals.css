@@ -467,4 +467,26 @@
   width: 500px;
 }
 
+/* styles/RoadmapImage.module.css */
+.roadmap-image-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 800px; /* Adjust based on your image dimensions */
+  margin: 0 auto;
+}
+
+.zoom-buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.roadmap-image {
+  display: block;
+  width: 100%;
+  transition: transform 0.2s ease-out;
+}
+
+
 /* Assuming the parent form has a class named 'flex-center', you can apply the following styles to center it */
