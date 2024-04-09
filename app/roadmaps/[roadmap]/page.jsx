@@ -1,16 +1,19 @@
 "use client"
-import React from "react";
+import React, {useState} from "react";
 import RoadmapViewer from '@components/RoadmapViewer';
 import { RoadMaps } from "@utils/developer_roadmaps";
 import { useRouter, usePathname  } from 'next/navigation';
+import Loading from '@components/Loading';
 
 const RoadmapPage = () => {
   const router = useRouter();
   const pathname = usePathname() 
+  const [loading, setLoading] = useState(true); 
 
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
 
   let pageTitle = "Default Roadmap Title";
 

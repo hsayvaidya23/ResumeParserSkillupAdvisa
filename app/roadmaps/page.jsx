@@ -2,8 +2,11 @@
 
 import RoadmapViewer from "@components/RoadmapViewer";
 import { RoadMaps } from "@utils/developer_roadmaps";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import Loading from '@components/Loading';
+import { useRouter } from "next/navigation";
 
 const RoadmapCard = ({ title, imageUrl, onClick }) => {
   return (
@@ -30,10 +33,37 @@ const RoadmapCard = ({ title, imageUrl, onClick }) => {
 
 const DevRoadmapPage = () => {
   const [selectedTitle, setSelectedTitle] = useState(null);
+  const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   const handleCardClick = (title) => {
     setSelectedTitle(title);
   };
+
+
+  useEffect(() => {
+    if (session === undefined) {
+      return;
+    }
+  
+    console.log("Session:", session);
+    if (!session?.user) {
+      setIsLoading(true);
+      console.log("User not logged in. Redirecting...");
+      router.push('/'); 
+    } else {
+      setIsLoading(false);
+    }
+  }, [session, router]);
+  
+
+  if (isLoading) {
+    return <div> <Loading /></div>;
+  }
+
+
+
 
   return (
     <>
