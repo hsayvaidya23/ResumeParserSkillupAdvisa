@@ -11,8 +11,9 @@ const Nav = () => {
   const [toggleDropDown, setToggleDropDown] = useState(false);
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+    setToggleDropDown(!toggleDropDown);
   };
+  
 
   const timeoutRef = useRef(null);
 
