@@ -19,7 +19,7 @@ const JobsCard = ({ index, image, link, tags, company_name, job_position }) => {
       </div>
 
       <div className="mt-5">
-        <h3 className="font-extrabold text-[24px] cursor-pointer hover:underline shadow-sm hover:shadow-md">
+        <h3 className="font-extrabold text-[24px] cursor-pointer hover:underline shadow-sm ">
           <a href={link} target="_blank" rel="noopener noreferrer">
             {job_position}
           </a>

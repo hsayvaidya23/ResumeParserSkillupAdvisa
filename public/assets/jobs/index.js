@@ -102,6 +102,12 @@ import meera from './meera.png';
 import path from './path.png';
 import del from './del.png'
 
+import connect4 from './connect4.png';
+import gala from './gala.jpeg';
+import iotics from './iotics.jpeg';
+import startwith from './startwith.jpeg';
+import tekkr from './tekkr.jpeg';
+
 export {
     acc,
     aim,
@@ -205,5 +211,11 @@ export {
     dtcc,
     meera,
     path,
-    del
+    del,
+
+    connect4,
+    gala,
+    iotics,
+    startwith,
+    tekkr,
 };

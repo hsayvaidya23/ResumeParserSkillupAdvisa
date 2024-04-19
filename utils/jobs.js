@@ -102,10 +102,82 @@ import {
   dtcc,
   meera,
   path,
-  del
+  del,
+  connect4,
+  gala,
+  iotics,
+  startwith,
+  tekkr
 } from "../public/assets/jobs";
 
 export const Jobs = [
+  //updated web jobs for internal 
+  {
+    company_name: "STARTWITH BASICX PVT. LTD.",
+    job_position: "JavaScript Developer",
+    work_location: "Jaipura, Rajasthan",
+    image: startwith,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/x6bO_4SxxLpMFDasIDvbi7uscnTFg5lBlAzgfS5dP-jZUzDZeTf2GA",
+  },
+  {
+    company_name: "Connect 4 Digital India",
+    job_position: "Java Developer",
+    work_location: "Punjab",
+    image: connect4,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/zcIRW9dMp0gXACZNf43OTfyZQIZaech9go1Ir1qeKb4eEr6PA9GNuA",
+  },
+  {
+    company_name: "Iotics Middle East",
+    job_position: "Senior Full Stack Developer",
+    work_location: "Cannanore, Kerala",
+    image: iotics,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/OgAAK366hvbDgqlDTSZ_nojHu_ofByyzL9rL1ZmE26Mx3dXykqWVog",
+  },
+  {
+    company_name: "Tekkr Technologies Private Limited",
+    job_position: "Full Stack Team Lead",
+    work_location: "Gachibowli, Hyderabad, Telangana",
+    image: tekkr,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/O7H5UynFOMPW9Fqg6QjfiovnF-ENgTqBRqrQhXIwfI9TcAwttp3Uaw",
+  },
+  {
+    company_name: "Galagali Multimedia",
+    job_position: "HTML Developer Intern",
+    work_location: "Thane, Maharashtra",
+    image: gala,
+    tags: [
+      {
+        name: "Web Developer",
+        color: "pink-text-gradient",
+      },
+    ],
+    link: "https://www.simplyhired.co.in/job/oYI4I_1pUY81-Ru5L7zcwMxuqKcKf4Ffsa9249LZwSxT08ycMD8slg",
+  },
+  
    //updated web dev
    {
     company_name: "Deloitte",
